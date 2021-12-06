@@ -16,9 +16,9 @@ $$
 
 #### 2.查找、插入、与删除
 
-（1）查找：顺序查找到关键值所在的块，再数组查找关键值
+（1）查找：顺序查找到关键值所在的块，再数组查找关键值。
 
-（2）插入：查找到后将该块中所有值后移一个并插入，N++，如果这时该块的大小超过上界，则在中间进行裂解。
+（2）插入：查找到后将该块中所有值后移一个并插入，N++，如果这时该块的大小超过上界，则在中间进行裂解。你需要
 
 （3）删除：查找到后将后面的值（如果有的话）前移一单位，若此时该块的大小小于下界，则该块和后面一块进行合并。
 
@@ -62,6 +62,7 @@ $$
 //account.h
 #include <fstream>
 #include <string>
+#include "book.h"
 //快来添加你需要的库吧
 
 class account_owner{
@@ -69,34 +70,34 @@ private:
   const int level=7;
   std::string ID;
   std::string Name="root";
-  std::Password="sjtu";
+  std::string Password="sjtu";
   //你可以添加其他私有成员
   
 public:
   //你可以添加其他公有成员
-  account_owner();
+  account_owner();//构造函数
   
-  void logout();
+  void logout();//登出当前账户
   
-  void registeR(std::string id,std::string password,std::string name);
+  void Register(std::string id,std::string password,std::string name);
   
-  void passwd(std::string id,std::string old_password,std::string new_password);
+  void Passwd(std::string id,std::string old_password,std::string new_password);
   
-  void useradd(std::string id,std::string password,const int &priority,std::string name);
+  void Useradd(std::string id,std::string password,const int &priority,std::string name);//增加账户
   
-  void deletE(std::string id);
+  void Delete(std::string id);
   
-  void show(const int &sel,std::string key);
+  void Show(const int &sel,std::string key);
   
-  void buy(std::string isbn,const int &quantity);
+  void Buy(std::string isbn,const int &quantity);//购买图书
   
-  void select(std::string isbn);
+  void Select(std::string isbn);
   
-  void modify(std::string isbn,std::string name,std::string author,const float &price);
+  void Modify(std::string isbn,std::string name,std::string author,const float &price);
   
-  void import(const int &quantity,const int &total_cost);
+  void Import(const int &quantity,const int &total_cost);
   
-  ~account_owner();
+  ~account_owner();//析构函数
   
 };
 
@@ -130,3 +131,66 @@ public:
 
 ```
 
+```c++
+//main.cpp
+#include "account.h"
+#include "book.h"
+
+class Exception{
+};
+#include <iostream>
+#include <fstream>
+//添加你需要的库
+int main(){
+  //处理某个测试文件
+  try{
+    
+    
+  }catch(Exception()){
+    //输出错误信息
+  }
+  
+  return 0;
+}
+```
+
+```c++
+
+```
+
+
+
+#### 3.日志系统
+
+（1）生成员工操作：按时间先后顺序返回员工操作，默认为当前账户，不符则输出空行。格式严格按照原指令格式，注意：不包含不合法指令。
+
+（2）账务记录查询：
+
+- 输出最后完成的指定笔数交易总额，格式为
+
+  ```
+  + [收入] - [支出]\n
+  ```
+
+  ，例如
+
+  ```
+  + 1.23 - 45678.90
+  ```
+
+  - 无 
+
+    ```
+    Time
+    ```
+
+    参数时，输出所有交易之总额
+
+    - `Time` 为 `0` 时输出空行
+    - `Time` 大于历史交易总笔数时操作失败
+
+（3）生成财务记录报告：按时间先后顺序输出交易额，格式为\+ [收入] - [支出]。
+
+（4）生成全体员工工作情况报告：按照员工账户注册顺序输出，每个员工都按照（1）输出，注意：员工之间输出空行。
+
+（5）生成日志：按时间先后顺序输出以行为单位的操作指令，格式严格按照原指令格式，注意：不包含不合法指令。
